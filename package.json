@@ -1,12 +1,12 @@
 {
-  "name": "TODO",
+  "name": "merge-map",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "TODO",
+  "license": "MIT",
   "scripts": {
     "test": "xo && nyc ava"
   },
-  "homepage": "https://github.com/futpib/TODO",
+  "homepage": "https://github.com/futpib/merge-map",
   "ava": {
     "verbose": true
   },
