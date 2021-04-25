@@ -1,8 +1,14 @@
+const invariant = require('invariant');
 
 const returnRight = (k, l, r) => r;
 const defaultCompare = (a, b) => a < b ? -1 : (b < a ? 1 : 0);
 
-const mergeMap = (left, right, resolveConflict = returnRight, compareKeys = defaultCompare) => new left.constructor((function * () {
+const mergeMap = (
+	left,
+	right,
+	resolveConflict = returnRight,
+	compareKeys = defaultCompare,
+) => new left.constructor((function * () {
 	const leftIterator = left[Symbol.iterator]();
 	const rightIterator = right[Symbol.iterator]();
 
@@ -50,7 +56,14 @@ const mergeMap = (left, right, resolveConflict = returnRight, compareKeys = defa
 			yield [ leftKey, resolveConflict(leftKey, leftValue, rightValue) ];
 			leftIteratorResult = leftIterator.next();
 			rightIteratorResult = rightIterator.next();
+			continue;
 		}
+
+		invariant(
+			false,
+			'mergeMap: `compareKeys` returned `%s` which is neither `> 0` nor `< 0` nor `=== 0`',
+			keyComparison,
+		);
 	}
 })());
 

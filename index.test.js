@@ -76,3 +76,21 @@ test('mergeMap, string keys, left wins conflicts', t => {
 		[ 'z', 100 ],
 	]));
 });
+
+test('mergeMap, broken key comparison', t => {
+	t.throws(() => mergeMap(
+		new Map([
+			[ 0, 'a' ],
+			[ 2, 'c' ],
+		]),
+		new Map([
+			[ 1, 'b' ],
+			[ 3, 'd' ],
+		]),
+		undefined,
+		() => null,
+	), {
+		name: 'Invariant Violation',
+		message: /compareKeys/,
+	});
+});
